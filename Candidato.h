@@ -30,10 +30,13 @@ public:
 	void setNombre(string nombre2);
 	void setMensaje(string mensaje2);
 	void setSexo(char sexo2);
-	void setEdad(int edad);
+	void setEdad(int edad2);
 	void setPartido(Partido* partido2);
 	void setVotos(int votos2);
 
 	// Metodos
+	Candidato& operator++();
+	Candidato& operator++(int);
 
+	friend ostream operator<<(ostream& os, const Candidato* c);
 };
