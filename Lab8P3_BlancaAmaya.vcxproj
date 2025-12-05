@@ -127,7 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Candidato.cpp" />
+    <ClCompile Include="Departamento.cpp" />
     <ClCompile Include="Lab8P3_BlancaAmaya.cpp" />
+    <ClCompile Include="Partido.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Candidato.h" />
+    <ClInclude Include="Departamento.h" />
+    <ClInclude Include="Partido.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
