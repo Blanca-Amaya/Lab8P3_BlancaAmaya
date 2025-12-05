@@ -16,19 +16,15 @@ int Departamento::getActas() const {
 	return actas;
 }
 
-int Departamento::getVotosPorActas() const {
+int Departamento::getVotosPorActa() const {
 	return votosporacta;
-}
-
-int Departamento::getVotosTotal() {
-	
 }
 
 void Departamento::setNombre(string nombre2) {
 	nombre = nombre2;
 }
 
-void Departamento::setActas(int actas2) {
+void Departamento::setActa(int actas2) {
 	actas = actas2;
 }
 

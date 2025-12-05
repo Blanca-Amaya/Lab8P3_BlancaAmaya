@@ -9,18 +9,17 @@ private:
 	int actas;
 	int votosporacta;
 public:
-	Departamento(string nombre = "", int actas, int votosporactas);
+	Departamento(string nombre, int actas, int votosporactas);
 	~Departamento();
 
 	// Getters
 	string getNombre() const;
 	int getActas() const;
-	int getVotosPorActas() const;
-	int getVotosTotal();
+	int getVotosPorActa() const;
 
 	// Setters
 	void setNombre(string nombre2);
-	void setActas(int actas2);
+	void setActa(int actas2);
 	void setVotosPorActas(int votosporacta2);
 
 	// Metodos

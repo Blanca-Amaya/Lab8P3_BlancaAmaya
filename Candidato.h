@@ -15,7 +15,7 @@ private:
 	int votos;
 
 public:
-	Candidato(string nombre = "", string mensaje = "", char sexo, int edad, Partido* partido = nullptr, int votos);
+	Candidato(string nombre, string mensaje, char sexo, int edad, Partido* partido, int votos);
 	~Candidato();
 
 	// Getters
@@ -35,8 +35,8 @@ public:
 	void setVotos(int votos2);
 
 	// Metodos
-	Candidato& operator++();
-	Candidato& operator++(int);
+	Candidato& operator++(); // --Prefijo ++candidato
+	Candidato operator++(int); // --Postfijo candidato++
 
-	friend ostream operator<<(ostream& os, const Candidato* c);
+	friend ostream& operator<<(ostream& os, const Candidato* c);
 };

@@ -56,6 +56,28 @@ void Candidato::setVotos(int votos2) {
 	votos = votos2;
 }
 
+// prefijo
 Candidato& Candidato::operator++() {
+	votos++;
+	return *this;
+}
 
+// postfijo
+Candidato Candidato::operator++(int) {
+	Candidato temporal = *this;
+	votos++;
+	return temporal;
+}
+
+ostream& operator<<(ostream& os, const Candidato* c) {
+	os << c->nombre << endl;
+	if (c->partido != nullptr) {
+		os << c->partido->getNombre() << endl;
+	}
+	else {
+		os << "Sin partido" << endl;
+	}
+
+	os << "Votos actuales : " << c->votos;
+	return os;
 }

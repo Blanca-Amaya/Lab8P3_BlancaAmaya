@@ -54,12 +54,37 @@ void ConsejoNacionalElectoral() {
         cout << "Mensaje del Candidato: ";
         string mensaje;
         cin >> mensaje;
-        cout << "Sexo del candidato (M/F): ";
+        
         char sexo;
-        cin >> sexo;
-        cout << "Edad del candidato: ";
+        do {
+            cout << "Sexo del candidato (M/F): ";
+            cin >> sexo;
+            sexo = toupper(sexo); // para que este en mayuscula
+            if (sexo != 'M' && sexo != 'F') {
+                cout << "Sexo invalida, debe ser M o F" << endl;
+                cin.clear();
+                cin.ignore(1000, '\n');
+            }
+        } while (sexo != 'M' && sexo != 'F');
+        cin.ignore(1000, '\n');
+
         int edad;
-        cin >> edad;
+        bool edadvalida;
+        do {
+            cout << "Edad del Candidato: ";
+            edadvalida = true;
+            if (!(cin >> edad)) {
+                cout << "Debe ingresar numeros para la edad" << endl;
+                edadvalida = false;
+                cin.clear();
+            }
+            if (edad <= 18) {
+                cout << "El candidato debe ser mayor a 18" << endl;
+                edadvalida = true;
+            }
+            cin.ignore(1000, '\n');
+        } while (edad <= 18 || !edadvalida);
+
         candidatos.push_back(new Candidato(nombre_candidato, mensaje, sexo, edad, partidos[i], 0));
         cout << endl;
     }
@@ -68,7 +93,40 @@ void ConsejoNacionalElectoral() {
     cout << "Los departamentos, junto con su respectiva carga electoral, han sido cargados" << endl;
     vector <Departamento*> departamentos2 = departamentos();
     for (int i = 0; i < departamentos2.size(); i++) {
-        cout << 
+        cout << departamentos2[i] << endl;
+    }
+
+    cout << endl;
+    int opcion;
+    cout << "Datos listo para empezar. La simulación empezará automáticamente, desea salir? " << endl;
+    cout << "1. Salir del simulador. " << endl;
+    cout << "0. Ver Simulación. " << endl;
+    cout << "Ingrese la opcion: "; cin >> opcion;
+
+    if (opcion == 1) {
+        cout << "Saliendo del simulador..." << endl;
+    }
+    else if (opcion != 0) {
+        cout << "Opcion invalida" << endl;
+        return;
+    }
+
+    cout << "Empezando Simulación..." << endl;
+    int actasTotal_divulgadas = 0;
+    for (int i = 0; i < departamentos2.size(); i++) {
+        int actas_dep, totalvotos_dep;
+        cout << "Departamento a procesar: " << endl;
+        cout << departamentos2[i] << endl;
+        int actas_dep = departamentos2[i]->getActas();
+        int votostotal_dep = departamentos2[i]->getVotosPorActa();
+
+        for (int j = 0; j < votostotal_dep; j++) {
+            int candidatoAlt = generarAlt(0, 4);
+            ++(*candidatos[candidatoAlt]); // operador ++ aumentar votos (prefijo)
+        }
+
+        actasTotal_divulgadas += actas_dep;
+        cout << departamentos2[i]->getNombre 
     }
 }
 
@@ -79,10 +137,12 @@ void menu() {
         cout << "<<<<<<<<<< MENÚ >>>>>>>>>>" << endl;
         cout << "1. Consejo Nacional Electoral" << endl;
         cout << "2. Salir." << endl;
+        cout << "Ingrese la opcion: ";
         cin >> opcion;
+        cout << endl;
         switch (opcion) {
         case 1:
-
+            ConsejoNacionalElectoral();
         case 2:
             cout << "Saliendo..." << endl;
             resp = false;
