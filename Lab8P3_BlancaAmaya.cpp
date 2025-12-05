@@ -9,12 +9,38 @@
 using namespace std;
 
 // liberar memoria
-void LiberarMemoria() {
+void LiberarMemoria(vector<Candidato*>& candidatos, vector<Partido*>& partidos, vector<Departamento*>& departamentos2) {
+    for (auto candidato : candidatos) {
+        if (candidato != nullptr) {
+            delete candidato;
+        }
+    }
+    candidatos.clear();
 
+    for (auto partido : partidos) {
+        if (partido != nullptr) {
+            delete partido;
+        }
+    }
+    partidos.clear();
+
+    for (auto dep : departamentos2) {
+        if (dep != nullptr) {
+            delete dep;
+        }
+    }
+    departamentos2.clear();
+}
+
+void resultados(const vector<Candidato*>& candidatos) {
+    for (int i = 0; i < candidatos.size(); i++) {
+        cout << candidatos[i] << endl; 
+        cout << endl;
+    }
 }
 
 // genera numeros alt en un rango (actas = 200, 500), votosPorActas(1000, 2000) 
-int generarAlt(int max, int minimo) {
+int generarAlt(int minimo, int max) {
     return minimo + rand() % (max - minimo + 1);
 }
 
@@ -77,10 +103,12 @@ void ConsejoNacionalElectoral() {
                 cout << "Debe ingresar numeros para la edad" << endl;
                 edadvalida = false;
                 cin.clear();
+                cin.ignore(1000, '\n');
+                continue;
             }
             if (edad <= 18) {
                 cout << "El candidato debe ser mayor a 18" << endl;
-                edadvalida = true;
+                edadvalida = false;
             }
             cin.ignore(1000, '\n');
         } while (edad <= 18 || !edadvalida);
@@ -105,20 +133,23 @@ void ConsejoNacionalElectoral() {
 
     if (opcion == 1) {
         cout << "Saliendo del simulador..." << endl;
+        LiberarMemoria(candidatos, partidos, departamentos2);
+        return;
     }
     else if (opcion != 0) {
         cout << "Opcion invalida" << endl;
+        LiberarMemoria(candidatos, partidos, departamentos2);
         return;
     }
 
     cout << "Empezando Simulación..." << endl;
     int actasTotal_divulgadas = 0;
     for (int i = 0; i < departamentos2.size(); i++) {
-        int actas_dep, totalvotos_dep;
+        int actas_dep, votostotal_dep;
         cout << "Departamento a procesar: " << endl;
         cout << departamentos2[i] << endl;
-        int actas_dep = departamentos2[i]->getActas();
-        int votostotal_dep = departamentos2[i]->getVotosPorActa();
+        actas_dep = departamentos2[i]->getActas();
+        votostotal_dep = departamentos2[i]->getVotosPorActa() * departamentos2[i]->getVotosPorActa();
 
         for (int j = 0; j < votostotal_dep; j++) {
             int candidatoAlt = generarAlt(0, 4);
@@ -126,8 +157,53 @@ void ConsejoNacionalElectoral() {
         }
 
         actasTotal_divulgadas += actas_dep;
-        cout << departamentos2[i]->getNombre 
+        cout << departamentos2[i]->getNombre() << " Ha sido completamente procesado" << endl;
+        cout << "Actas divulgadas: " << actasTotal_divulgadas << endl << endl;
+
+        // estado actual de los cadidatos
+        resultados(candidatos);
+        if (i < departamentos2.size() - 1) {
+            cout << "Continuar en la simulacion? " << endl;
+            cout << "1. Sí" << endl;
+            cout << "2. No" << endl;
+            cout << "Ingrese opcion: ";
+            int opcion;
+            cin >> opcion;
+
+            if (opcion != 1) {
+                cout << "Saliendo de simulación" << endl;
+                break;
+            }
+        }
     }
+
+    cout << "Total Actas Divulgadas: " << actasTotal_divulgadas << endl;
+    int votosmax = -1;
+    Candidato* ganador = nullptr;
+    // ganador de la simulacion
+    for (auto candidato : candidatos) {
+        if (candidato->getVotos() > votosmax) {
+            votosmax = candidato->getVotos();
+            ganador = candidato;
+        }
+    }
+
+    if (ganador != nullptr) {
+        cout << "-> Ganador: " << ganador->getNombre() << endl;
+        cout << "-> Partido: " << ganador->getPartido() << endl;
+        cout << "-> Votos Actuales: " << ganador->getVotos() << endl;
+        cout << "-> Mensaje: " << ganador->getMensaje() << endl;
+    }
+
+    // resultado finales 
+    cout << "-- Resultado finales --" << endl;
+    for (int i = 0; i < candidatos.size(); i++) {
+        cout << "Nombre: " << candidatos[i]->getNombre() << endl;
+        cout << "Partido: " << candidatos[i]->getPartido() << endl;
+        cout << "Votos: " << candidatos[i]->getVotos() << endl;
+        cout << "Mensaje: " << candidatos[i]->getMensaje() << endl;
+    }
+    LiberarMemoria(candidatos, partidos, departamentos2);
 }
 
 void menu() {
