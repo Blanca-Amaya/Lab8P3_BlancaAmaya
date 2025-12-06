@@ -20,6 +20,10 @@ int Departamento::getVotosPorActa() const {
 	return votosporacta;
 }
 
+int Departamento::getVotosTotal() const {
+	return actas * votosporacta;
+}
+
 void Departamento::setNombre(string nombre2) {
 	nombre = nombre2;
 }

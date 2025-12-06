@@ -16,6 +16,7 @@ public:
 	string getNombre() const;
 	int getActas() const;
 	int getVotosPorActa() const;
+	int getVotosTotal() const;
 
 	// Setters
 	void setNombre(string nombre2);

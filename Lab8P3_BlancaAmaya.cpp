@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <cstdlib>
+#include <cctype>
 #include <ctime>
 #include "Partido.h"
 #include "Departamento.h"
@@ -149,7 +150,7 @@ void ConsejoNacionalElectoral() {
         cout << "Departamento a procesar: " << endl;
         cout << departamentos2[i] << endl;
         actas_dep = departamentos2[i]->getActas();
-        votostotal_dep = departamentos2[i]->getVotosPorActa() * departamentos2[i]->getVotosPorActa();
+        votostotal_dep = departamentos2[i]->getActas() * departamentos2[i]->getVotosPorActa();
 
         for (int j = 0; j < votostotal_dep; j++) {
             int candidatoAlt = generarAlt(0, 4);
@@ -199,7 +200,7 @@ void ConsejoNacionalElectoral() {
     cout << "-- Resultado finales --" << endl;
     for (int i = 0; i < candidatos.size(); i++) {
         cout << "Nombre: " << candidatos[i]->getNombre() << endl;
-        cout << "Partido: " << candidatos[i]->getPartido() << endl;
+        cout << "Partido: " << candidatos[i]->getPartido()->getNombre() << endl;
         cout << "Votos: " << candidatos[i]->getVotos() << endl;
         cout << "Mensaje: " << candidatos[i]->getMensaje() << endl;
     }
@@ -219,6 +220,7 @@ void menu() {
         switch (opcion) {
         case 1:
             ConsejoNacionalElectoral();
+            break;
         case 2:
             cout << "Saliendo..." << endl;
             resp = false;
