@@ -191,7 +191,7 @@ void ConsejoNacionalElectoral() {
 
     if (ganador != nullptr) {
         cout << "-> Ganador: " << ganador->getNombre() << endl;
-        cout << "-> Partido: " << ganador->getPartido() << endl;
+        cout << "-> Partido: " << ganador->getPartido()->getNombre() << endl;
         cout << "-> Votos Actuales: " << ganador->getVotos() << endl;
         cout << "-> Mensaje: " << ganador->getMensaje() << endl;
     }
@@ -203,6 +203,7 @@ void ConsejoNacionalElectoral() {
         cout << "Partido: " << candidatos[i]->getPartido()->getNombre() << endl;
         cout << "Votos: " << candidatos[i]->getVotos() << endl;
         cout << "Mensaje: " << candidatos[i]->getMensaje() << endl;
+        cout << endl;
     }
     LiberarMemoria(candidatos, partidos, departamentos2);
 }
