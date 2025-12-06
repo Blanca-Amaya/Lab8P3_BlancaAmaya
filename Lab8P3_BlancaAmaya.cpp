@@ -1,9 +1,10 @@
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include <vector>
 #include <cstdlib>
 #include <cctype>
 #include <ctime>
+#include <locale>
 #include "Partido.h"
 #include "Departamento.h"
 #include "Candidato.h"
@@ -234,6 +235,7 @@ void menu() {
 }
 
 int main() {
+    setlocale(LC_ALL, "spanish");
     srand(time(0));
     menu();
 }
